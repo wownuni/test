@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>WEB PUBLISHING GUIDE</title>
+<style type="text/css">
+body {padding:0; margin:0; font-size:14px; font-family:dotum,"돋움"; color:#333333;}
+#header {overflow:hidden;  padding:15px 15px 30px;}
+#header h1 {float:left; padding:0; margin:0; font-size:2.5em; color:#666666; font-family:Arial;}
+#header .logo {float:right; padding:0; margin:10px 0 0 0;}
+#depth1 ul {display: inline-block; white-space:nowrap; padding:5px 10px; margin:0; list-style:none; background:#eeeeee;}
+#depth1 ul li {display:inline; padding:0; margin:0 10px;}
+.stepInfo {clear:both; padding:0; margin:5px 0; text-align:right;}
+.stepInfo li {display:inline; margin-right:10px; font-size:0.9em;}
+.stepInfo li span {display:inline-block; width:35px; height:13px; margin-right:3px; vertical-align:top;}
+.listTbl {width:100%; padding:0; margin:0; border:0; border-bottom:1px solid #e7e7e7; border-collapse:collapse;}
+.listTbl thead th {height:26px; border:1px solid #666666; font-size:13px; font-weight:normal; white-space:nowrap;}
+.listTbl tbody th {height:24px; padding:0 10px; text-align:left; border:1px solid #e7e7e7; background:#eeeeee;}
+.listTbl tbody td {height:24px; padding:0 10px; border:1px solid #e7e7e7; border-bottom:0; font-size:13px; color:#666666}
+.listTbl th.depth2 {background:#fceff7; border-left:0;}
+.listTbl td.depth2 {white-space:nowrap; text-align:left; background:#fceff7; border-top-color:#e7e7e7;}
+.listTbl th.depth3 {background:#f2fcef;}
+.listTbl td.depth3 {white-space:nowrap; text-align:left; background:#f2fcef; border-top-color:#e7e7e7;}
+.listTbl th.depth4 {background:#efeffc;}
+.listTbl td.depth4 {white-space:nowrap; text-align:left; background:#efeffc; border-top-color:#e7e7e7;}
+.listTbl th.depth5 {background:#fcfcef;}
+.listTbl td.depth5 {white-space:nowrap; text-align:left; background:#fcfcef; border-top-color:#e7e7e7;}
+.listTbl th.popup {background:#effafc;}
+.listTbl td.popup {white-space:nowrap; text-align:left; background:#effafc; border-top-color:#e7e7e7;}
+.listTbl td.link {text-align:left;}
+.listTbl td.link a {white-space:nowrap;}
+.listTbl td.psd,
+.listTbl td.endHtml,
+.listTbl td.check1,
+.listTbl td.check2,
+.listTbl td.end,
+.listTbl td.name {text-align:center; white-space:nowrap;}
+.listTbl th.name,
+.listTbl th.last,
+.listTbl td.name {border-right:0 !important;}
+.listTbl tr:hover td {background:#548bcc !important; color:#ffffff;}
+.step1,
+.listTbl tr td.step1 {background:#999999 !important; color:#ffffff !important;}
+.step2,
+.listTbl tr td.step2 {background:#000000 !important; color:#ffffff !important;}
+#footer {position:fixed; left:0; bottom:0; width:100%;}
+#footer .goTop {text-align:right;}
+#footer .goTop a {display:inline-block; padding:1px 3px; text-decoration:none; background:#666666; color:#fff;}
+#footer .footBg {overflow:hidden; padding:10px 0 10px 10px; background:#eeeeee; border-top:1px solid #666666;}
+#footer .progress,
+#footer .nameList {padding:5px 0 0; margin:0; }
+#footer .progress li,
+#footer .nameList li {display:inline; padding:0; margin:0 10px 0 0; color:blue; }
+#footer .nameList {display:block;}
+#footer .tempMenu {float:right; white-space:nowrap; padding:0; margin:0; list-style:none;}
+#footer .tempMenu li {display:inline; padding:0; margin:0 10px;}
+#footer .info {padding:0; margin:0; list-style:none;}
+#container {padding-bottom:150px;}
+
+.ajax,.listTbl tr.ajax td {background:yellow;}
+</style>
+<script src="../js/jquery-1.11.2.min.js"></script>
+<script>
+$(function(){
+	 var total = $($('.depth2')).length - 1; /* 총 갯수 */
+	 $('.numTotal span').append(total);
+
+	 var psd = $($('.psd span:contains(O)')).length; /* psd 완료 */
+	 $('.numPsd span').append(psd);
+
+	 var endHtml = $($('.endHtml.step2')).length; /* html 완료 */
+	 $('.numHtml span').append(endHtml);
+
+	 var check1 = $($('.check1.step2')).length; /* 1차검수 완료 */
+	 $('.numCheck1 span').append(check1);
+
+	 var check2 = $($('.check1.step2')).length; /* 2차검수 완료 */
+	 $('.numCheck2 span').append(check2);
+
+	 var end = $($('.end.step2')).length;  /* 완료 */
+	 $('.numEnd span').append(end);
+
+	 var hgd1 = $($('.name span:contains(홍길동1)')).length; /* 담당자:홍길동1 지정수*/
+	 $('.numHgd1 span.tat').append(hgd1);
+	 var hgd1E = $($('.name span:contains(홍길동1)').parents().children('.endHtml.step2')).length; /* 담당자:홍길동1 완료 */
+	 $('.numHgd1 span.end').append(hgd1E);
+
+	 var hgd2 = $($('.name span:contains(홍길동2)')).length; /* 담당자:홍길동2 지정수 */
+	 $('.numHgd2 span.tat').append(hgd2);	 
+	 var hgd2E = $($('.name span:contains(홍길동2)').parents().children('.endHtml.step2')).length; /* 담당자:홍길동2 완료 */
+	 $('.numHgd2 span.end').append(hgd2E);
+	  
+
+	 var hgd3 = $($('.name span:contains(홍길동3)')).length; /* 담당자:홍길동3 지정수*/
+	 $('.numHgd3 span.tat').append(hgd3);
+	 var hgd3E = $($('.name span:contains(홍길동3)').parents().children('.endHtml.step2')).length; /* 담당자:홍길동3 완료 */
+	 $('.numHgd3 span.end').append(hgd3E);
+	 
+	 var hgd4 = $($('.name span:contains(홍길동4)')).length; /* 담당자:홍길동4 지정수*/
+	 $('.numHgd4 span.tat').append(hgd4);
+	 var hgd4E = $($('.name span:contains(홍길동4)').parents().children('.endHtml.step2')).length; /* 담당자:홍길동4 완료 */
+	 $('.numHgd4 span.end').append(hgd4E);
+
+	 var hgd5 = $($('.name span:contains(홍길동5)')).length; /* 담당자:홍길동5 지정수*/
+	 $('.numHgd5 span.tat').append(hgd5);
+	 var hgd5E = $($('.name span:contains(홍길동5)').parents().children('.endHtml.step2')).length; /* 담당자:홍길동5 완료 */
+	 $('.numHgd5 span.end').append(hgd5E);
+	 
+	 var total2= hgd1+hgd2+hgd3+hgd4+hgd5; /* 합계 */
+	 $('.total2 span.t2').append(total2);
+	 var total3= hgd1E+hgd2E+hgd3E+hgd4E+hgd5E; /* 합계 */
+	 $('.total2 span.t3').append(total3);
+});
+</script>
+</head>
+
+<body>
+<!-- footer -->
+<!-- footer -->
+<div id="footer">
+	<div class="goTop"><a href="#header">Top</a></div>
+	<div class="footBg">
+		<ul class="tempMenu">
+			<li><a href="../html/guide/styleGuide.html" target="_blank">styleGuide</a></li>
+			<li><a href="../html/sub/temp/btn.html" target="_blank">Button</a></li>
+			<li><a href="../html/sub/temp/table.html" target="_blank">Table</a></li>
+			<li><a href="../html/sub/temp/list.html" target="_blank">List</a></li>
+			<li><a href="../html/sub/temp/contents.html" target="_blank">Contents</a></li>
+			<li><a href="../calendar/calendar.html" target="_blank">Calendar</a></li>
+			<li><a href="../html/sub/temp/popup01.html" target="_blank">Popup01</a></li>
+			<li><a href="../html/sub/temp/popup02.html" target="_blank">Popup02</a></li>
+			<li><a href="../html/sub/temp/popup03.html" target="_blank">일반(에러)팝업</a></li>
+			<li><a href="../html/sub/temp/popLayer.html" target="_blank">레이어팝업</a></li>
+		</ul>
+		<ul class="info">
+			<li>프로젝트명: 국도화학 리뉴얼</li>
+			<li>인코딩: utf-8</li>
+		</ul>
+		<ul class="progress">
+			<li class="numTotal">total:<span></span></li>
+			<li class="numPsd">PSD:<span></span></li>
+			<li class="numHtml">HTML:<span></span></li>
+			<li class="numCheck1">1차검수:<span></span></li>
+			<li class="numCheck2">2차검수:<span></span></li>
+			<li class="numEnd">완료:<span></span></li>
+		</ul>
+		<ul class="nameList">
+			<li class="numHgd1">홍길동1:<span class="end"></span>/<span class="tat"></span></li>
+			<li class="numHgd2">홍길동2:<span class="end"></span>/<span class="tat"></span></li>
+			<li class="numHgd3">홍길동3:<span class="end"></span>/<span class="tat"></span></li>
+			<li class="numHgd4">홍길동4:<span class="end"></span>/<span class="tat"></span></li>
+			<li class="numHgd5">홍길동5:<span class="end"></span>/<span class="tat"></span></li>
+			
+			<li class="total2">합계:<span class="t3"></span>/<span class="t2"></span></li>
+		</ul>
+	</div>
+</div>
+<!-- //footer -->
+<div id="wrap">
+	<!-- header -->
+	<div id="header">
+		<h1>WEB PUBLISHING GUIDE - 국도화학</h1>
+		<p class="logo"><img src="logo.jpg" alt="" /></p>
+	</div>
+	<!-- //header -->
+
+<!-- container -->
+
+<div id="container">
+
+<div id="depth1">
+	<ul>
+		<li><a href="#dpeth1_1">1Depth01</a></li>
+		<li><a href="#dpeth1_2">1Depth02</a></li>
+	</ul>
+</div>
+<ul class="stepInfo">
+	<li><span class="step1"></span>진행중</li>
+	<li><span class="step2"></span>완료</li>
+</ul>
+<table class="listTbl" summary="코딩 파일 리스트입니다.">
+<caption></caption>
+<colgroup>
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col />
+	<col width="40" />
+	<col width="50" />
+	<col width="50" />
+	<col width="50" />
+	<col width="50" />
+	<col width="60" />
+</colgroup>
+<thead>
+<tr>
+	<th scope="col" class="depth2">2DEPTH</th>
+	<th scope="col" class="depth3">3DEPTH</th>
+	<th scope="col" class="depth4">4DEPTH</th>
+	<th scope="col" class="depth5">5DEPTH</th>
+	<th scope="col" class="popup">Tap</th>
+	<th scope="col" class="popup">Popup</th>
+	<th scope="col">비고</th>
+	<th scope="col">화면ID(링크)</th>
+	<th scope="col">PSD</th>
+	<th scope="col">HTML</th>
+	<th scope="col">1차검수</th>
+	<th scope="col">2차검수</th>
+	<th scope="col">완료</th>
+	<th scope="col" class="name">담당자</th>
+</tr>
+<tbody>
+<tr>
+	<th scope="col" id="dpeth1_1" class="last" colspan="14">메인</th>
+</tr>
+<tr>
+	<td class="depth2">메인</td>
+	<td class="depth3">gnb, 푸터</td>
+	<td class="depth4"></td>
+	<td class="depth5"></td>
+	<td class="popup"></td>
+	<td class="popup"></td>
+	<td></td>
+	<td class="link"><a href="../html/.html" target="_blank">화면ID</a></td>
+	<td class="psd"><span>o</span></td>
+	<td class="endHtml step0">01/08 수정</td>
+	<td class="check1 step0"></td>
+	<td class="check2 step2">2012-12-07</td>
+	<td class="end step0"></td>
+	<td class="name"><span>홍길동1</span></td>
+</tr>
+<tr>
+	<th scope="col" id="dpeth1_1" class="last" colspan="14">회원가입</th>
+</tr>
+<tr>
+	<td class="depth2">로그인</td>
+	<td class="depth3">이메일 찾기 팝업, 비밀번호 찾기 팝업</td>
+	<td class="depth4"></td>
+	<td class="depth5"></td>
+	<td class="popup"></td>
+	<td class="popup"></td>
+	<td></td>
+	<td class="link"><a href="../html/join/PCFUSR100.html" target="_blank">PCFUSR100</a></td>
+	<td class="psd"><span>o</span></td>
+	<td class="endHtml step0">04/29 수정</td>
+	<td class="check1 step0"></td>
+	<td class="check2 step1">04/29</td>
+	<td class="end step0"></td>
+	<td class="name"><span>홍길동2</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

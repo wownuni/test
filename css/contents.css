@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* 기본 */
+
+
+.tblType01 {padding:0; margin:0; border-collapse:collapse; border:1px solid #000;}
+.tblType01 thead th {border:1px solid #000; background:#999;}
+.tblType01 tbody td {border:1px solid #000;}
+
+/* Small */
+@media (max-width:767px){
+	
+}
+/* Tablet */
+@media (min-width:768px) and (max-width:1024px){
+	
+}
+/* Desktop */
+@media (min-width:1025px){
+	
+}
